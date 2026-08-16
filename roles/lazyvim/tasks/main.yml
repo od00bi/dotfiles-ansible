@@ -1,0 +1,26 @@
+- name: Install neovim
+  community.general.pacman:
+    name: neovim
+  become: true
+- name: Check for current lazyvim
+  ansible.builtin.stat:
+    path: "~/.config/nvim/lazyvim.json"
+  register: lazyvim
+- name: Clone lazyvim starter
+  ansible.builtin.git:
+    repo: "https://github.com/LazyVim/starter"
+    dest: "~/.config/nvim"
+  when: not lazyvim.stat.exists
+- name: Remove starter git folder
+  ansible.builtin.file:
+    path: "~/.config/nvim/.git"
+    state: "absent"
+- name: Check/add options
+  ansible.builtin.lineinfile:
+    path: "~/.config/nvim/lua/config/options.lua"
+    line: "{{ item }}"
+    insertafter: EOF
+    state: present
+  loop:
+    - "vim.opt.conceallevel = 0"
+    - "vim.opt.listchars = { eol = '$', trail = '~', multispace = '.', tab = '>-'}"

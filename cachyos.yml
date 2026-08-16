@@ -1,0 +1,24 @@
+- name: CachyOS post-configuration
+  hosts: localhost
+  roles:
+    - lazyvim
+  tasks:
+    - name: Install packages
+      community.general.pacman:
+        name:
+          - tmux
+          - firefox
+          - 7zip
+          - virtualbox
+          - virtualbox-guest-iso
+          - bitwarden
+          - nextcloud-client
+      become: true
+    - name: Additional home folders
+      ansible.builtin.file:
+        name: "~/{{ item }}"
+        state: "directory"
+      loop:
+        - "repos"
+        - "tmp"
+- import_playbook: "../dotfiles-generic/playbooks/tmux.yml"
