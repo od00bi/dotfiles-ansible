@@ -14,6 +14,22 @@
           - bitwarden
           - nextcloud-client
       become: true
+    - name: Set hyprland keyboard layout
+      ansible.builtin.blockinfile:
+        path: "~/.config/hypr/config/inputs.lua"
+        marker: "-- {mark} ANSIBLE kb_layout"
+        insertafter: 'input = {'
+        block: |
+          kb_layout = "se",
+    - name: Set greeter keyboard layout
+      ansible.builtin.blockinfile:
+        path: "/var/lib/noctalia-greeter/greeter.toml"
+        marker: "# {mark} ANSIBLE keyboard layout"
+        insertafter: EOF
+        block: |
+          [keyboard]
+          layout = "se"
+      become: true
     - name: Additional home folders
       ansible.builtin.file:
         name: "~/{{ item }}"
