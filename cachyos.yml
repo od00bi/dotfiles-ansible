@@ -1,6 +1,7 @@
 - name: CachyOS post-configuration
   hosts: localhost
   roles:
+    - tmux
     - lazyvim
   tasks:
     - name: Install packages
@@ -21,4 +22,3 @@
       loop:
         - "repos"
         - "tmp"
-- import_playbook: "../dotfiles-generic/playbooks/tmux.yml"

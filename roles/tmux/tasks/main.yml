@@ -1,0 +1,19 @@
+- name: Check for and/or install tmux
+  community.general.pacman:
+    name: tmux
+  become: true
+- name: Create tmux folder
+  ansible.builtin.file:
+    name: "~/.tmux/plugins/tpm"
+    state: directory
+- name: Install tpm
+  ansible.builtin.git:
+    repo: "https://github.com/tmux-plugins/tpm.git"
+    dest: "~/.tmux/plugins/tpm"
+- name: Copy configuration and theme files
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "~/{{ item.dest }}"
+  loop:
+    - {src: "tmux.conf", dest: ".tmux.conf"}
+    - {src: "tmux-snazzy.theme.conf", dest: ".tmux/tmux-snazzy.theme.conf"}
