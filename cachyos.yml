@@ -4,10 +4,9 @@
     - tmux
     - lazyvim
   tasks:
-    - name: Install packages
+    - name: Install additional packages
       community.general.pacman:
         name:
-          - tmux
           - firefox
           - 7zip
           - virtualbox
@@ -22,3 +21,4 @@
       loop:
         - "repos"
         - "tmp"
+        - "mnt"
