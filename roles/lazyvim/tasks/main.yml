@@ -1,7 +1,8 @@
 - name: Install neovim
   community.general.pacman:
-    name: neovim
-    name: lazygit
+    name: 
+      - neovim
+      - lazygit
   become: true
 - name: Check for current lazyvim
   ansible.builtin.stat:
