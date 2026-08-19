@@ -44,3 +44,8 @@
         - "repos"
         - "tmp"
         - "mnt"
+    - name: Copy hypr binds config
+      ansible.builtin.copy:
+        src: "cachyos/binds.lua"
+        dest: "~/.config/hypr/config/binds.lua"
+        backup: true
