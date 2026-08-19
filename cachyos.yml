@@ -11,6 +11,7 @@
           - 7zip
           - virtualbox
           - virtualbox-guest-iso
+          - wireguard-tools
           - bitwarden
           - nextcloud-client
       become: true

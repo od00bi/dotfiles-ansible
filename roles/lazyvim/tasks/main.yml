@@ -3,6 +3,7 @@
     name: 
       - neovim
       - lazygit
+      - yarn
   become: true
 - name: Check for current lazyvim
   ansible.builtin.stat:
@@ -26,3 +27,11 @@
   loop:
     - "vim.opt.conceallevel = 0"
     - "vim.opt.listchars = { eol = '$', trail = '~', multispace = '.', tab = '>-'}"
+- name: Additional plugins
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "~/.config/nvim/lua/plugins/{{ item }}"
+  loop:
+    - "img-clip.lua"
+    - "markdown-preview.lua"
+    - "vim-tmux-navigator.lua"
