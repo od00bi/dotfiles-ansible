@@ -31,6 +31,11 @@
           [keyboard]
           layout = "se"
       become: true
+    - name: Set kitty padding
+      ansible.builtin.lineinfile:
+        path: "~/.config/kitty/kitty.conf"
+        regexp: '^window_padding_width'
+        line: "window_padding_width 5"
     - name: Additional home folders
       ansible.builtin.file:
         name: "~/{{ item }}"
